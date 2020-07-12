@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Build A TO-DO List App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="dist/todo-app.js"></script>
+  </head>
+  <body>
+    <h1 class="text-center" id="app-title">MY TO-DO LIST</h1>
+    <div class="card">
+      <div class="card-header text-center" id="card-header"></div>
+      <div class="card-body" id="card-body"></div>
+      <div class="card-footer" id="card-footer">
+        <div id="filters"></div>
+        <div id="summary"></div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var state = {
+        todos: [],
+        updatingTodoIndex: -1,
+      };
+
+      function createTodo(name, completed) {
+        return {
+          name: name,
+          completed: completed,
+        };
+      }
+
+      function addTodo(name) {
+        var todoItem = createTodo(name, false);
+        state.todos.push(todoItem);
+        return state.todos;
+      }
+
+      function toggleCompleted(name, completed, index) {
+        var todoItem = createTodo(name, !completed);
+        state.todos[index] = todoItem;
+        return state.todos;
+      }
+
+      function updateTodo(name, index) {
+        var todoItem = createTodo(name, false);
+        state.todos[index] = todoItem;
+        return state.todos;
+      }
+
+      function removeTodo(index) {
+        state.todos.splice(index, 1);
+        return state.todos;
+      }
+
+      function filterCompleted() {
+        return state.todos.filter(function (value) {
+          return value.completed === true;
+        });
+      }
+
+      function filterActive() {
+        return state.todos.filter(function (value) {
+          return value.completed === false;
+        });
+      }
+    </script>
+  </body>
+</html>
